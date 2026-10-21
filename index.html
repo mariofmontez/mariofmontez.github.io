@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mário Montez | SIG, Utility Network e redes de água</title>
+<meta name="description" content="Notas técnicas, projetos e percurso em ArcGIS Enterprise, Utility Network e engenharia de dados geográficos para redes de água.">
+<meta name="author" content="Mário Montez">
+<meta name="theme-color" content="#0E2A3B">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mário Montez | SIG e Utility Network">
+<meta property="og:description" content="ArcGIS Enterprise, Utility Network, Python e dados geográficos aplicados a redes de água.">
+<meta property="og:image" content="https://[seudominio].pt/og-image.jpg">
+<meta property="og:url" content="https://[seudominio].pt/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Saltar para o conteúdo</a>
+
+<header>
+  <nav class="wrap nav" aria-label="Principal">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M3 18 H13 V7 H23" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="18" r="3.5" fill="#D9982A"/></svg>
+      Mário Montez
+    </a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+    <div class="links" id="menu">
+      <a href="#areas">Atuação</a>
+      <a href="#stack">Tecnologias</a>
+      <a href="#internacional">Internacional</a>
+      <a href="#notas">Notas</a>
+      <a href="#percurso">Percurso</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="role">Sistemas de Informação Geográfica aplicados a redes de água</p>
+        <h1>ArcGIS Utility Network aplicado a redes de águas de abastecimento, residuais e pluviais.</h1>
+        <p class="lede">Ao longo do meu percurso profissional, sempre trabalhei com tecnologia SIG aplicada a redes de água. Atualmente dedico-me à implementação e configuração da ArcGIS Utility Network, apoiando entidades gestoras na gestão dos seus ativos geográficos e na modelação das suas redes, contribuindo para um conhecimento mais rigoroso e uma exploração mais eficiente das mesmas.</p>
+        <ul class="profiles">
+          <li><a href="https://github.com/mariofmontez">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/mariomontez/">LinkedIn</a></li>
+        </ul>
+      </div>
+
+      <svg class="network" viewBox="0 0 700 420" role="img" aria-label="Esquema de uma rede de abastecimento de água com reservatório, condutas, nós e válvulas">
+        <path class="pipe" d="M150 120 V40 H300"/>
+        <path class="pipe sec" d="M260 210 V330 H160 V390"/>
+        <path class="flow flow-sec" d="M260 210 V330 H160 V390"/>
+        <path class="pipe sec" d="M260 330 H380 V390"/>
+        <path class="flow flow-sec" d="M260 330 H380 V390"/>
+        <path class="pipe" d="M300 40 V90"/>
+        <path class="pipe sec" d="M490 210 V130"/>
+        <path class="flow flow-sec" d="M490 210 V130"/>
+        <path class="pipe sec" d="M490 210 V310"/>
+        <path class="flow flow-sec" d="M490 210 V310"/>
+        <path class="pipe sec" d="M690 130 V310"/>
+        <path class="flow flow-sec" d="M690 130 V310"/>
+        <path class="pipe sec" d="M490 130 H690"/>
+        <path class="flow flow-sec" d="M490 130 H690"/>
+        <path class="pipe sec" d="M490 190 H690"/>
+        <path class="flow flow-sec" d="M490 190 H690"/>
+        <path class="pipe sec" d="M490 250 H690"/>
+        <path class="flow flow-sec" d="M490 250 H690"/>
+        <path class="pipe sec" d="M490 310 H690"/>
+        <path class="flow flow-sec" d="M490 310 H690"/>
+        <path class="pipe sec" d="M522 130 V120"/>
+        <path class="flow flow-sec" d="M522 130 V120"/>
+        <path class="pipe sec" d="M552 130 V120"/>
+        <path class="flow flow-sec" d="M552 130 V120"/>
+        <path class="pipe sec" d="M598 130 V120"/>
+        <path class="flow flow-sec" d="M598 130 V120"/>
+        <path class="pipe sec" d="M628 130 V120"/>
+        <path class="flow flow-sec" d="M628 130 V120"/>
+        <path class="pipe sec" d="M660 130 V120"/>
+        <path class="flow flow-sec" d="M660 130 V120"/>
+        <path class="pipe sec" d="M522 190 V180"/>
+        <path class="flow flow-sec" d="M522 190 V180"/>
+        <path class="pipe sec" d="M552 190 V180"/>
+        <path class="flow flow-sec" d="M552 190 V180"/>
+        <path class="pipe sec" d="M598 190 V180"/>
+        <path class="flow flow-sec" d="M598 190 V180"/>
+        <path class="pipe sec" d="M628 190 V180"/>
+        <path class="flow flow-sec" d="M628 190 V180"/>
+        <path class="pipe sec" d="M660 190 V180"/>
+        <path class="flow flow-sec" d="M660 190 V180"/>
+        <path class="pipe sec" d="M527 250 V240"/>
+        <path class="flow flow-sec" d="M527 250 V240"/>
+        <path class="pipe sec" d="M557 250 V240"/>
+        <path class="flow flow-sec" d="M557 250 V240"/>
+        <path class="pipe sec" d="M610 250 V240"/>
+        <path class="flow flow-sec" d="M610 250 V240"/>
+        <path class="pipe sec" d="M650 250 V240"/>
+        <path class="flow flow-sec" d="M650 250 V240"/>
+        <path class="pipe sec" d="M527 310 V300"/>
+        <path class="flow flow-sec" d="M527 310 V300"/>
+        <path class="pipe sec" d="M557 310 V300"/>
+        <path class="flow flow-sec" d="M557 310 V300"/>
+        <path class="pipe sec" d="M610 310 V300"/>
+        <path class="flow flow-sec" d="M610 310 V300"/>
+        <path class="pipe sec" d="M650 310 V300"/>
+        <path class="flow flow-sec" d="M650 310 V300"/>
+        <path class="pipe main" d="M68 210 H150 V120 M150 210 H490"/>
+        <path class="flow" d="M70 210 H490"/>
+        <path class="flow" d="M150 210 V136"/>
+        <g class="tank-sym" aria-label="tank">
+          <rect class="tank-shell" x="12" y="166" width="22" height="14" rx="2"/>
+          <path class="tank-shell" d="M12 180 Q40 169 68 180 V243 Q40 255 12 243 Z"/>
+          <path class="tank-air" d="M17 186 Q40 177 63 186 V194 H17 Z"/>
+          <path class="tank-water" d="M17 194 H63 V238 Q40 248 17 238 Z"/>
+          <rect class="tank-line" x="25" y="200" width="30" height="3"/>
+          <rect class="tank-line" x="29" y="207" width="22" height="3"/>
+          <circle class="tank-air" cx="40" cy="232" r="4.5"/>
+        </g>
+        <text x="28" y="268">Tank</text>
+        <path class="valve" d="M196 200 L196 220 L214 210 Z M232 200 L232 220 L214 210 Z"/>
+        <path class="valve" d="M140 104 L160 104 L150 120 Z M140 136 L160 136 L150 120 Z"/>
+        <circle class="node" cx="150" cy="210" r="8"/>
+        <circle class="node" cx="260" cy="210" r="8"/>
+        <g class="meter" aria-label="flow meter" transform="translate(400 210) scale(0.72) translate(-340 -210)">
+          <rect class="meter-body" x="322" y="202" width="36" height="16" rx="2"/>
+          <rect class="meter-flange" x="315" y="199" width="8" height="22" rx="2.5"/>
+          <rect class="meter-flange" x="357" y="199" width="8" height="22" rx="2.5"/>
+          <rect class="meter-body" x="335" y="189" width="10" height="13" rx="1.5"/>
+          <circle class="meter-ring" cx="340" cy="174" r="16"/>
+          <circle class="meter-face" cx="340" cy="174" r="11"/>
+          <path class="meter-tick" d="M340 164.5 V167.5 M340 180.5 V183.5 M330.5 174 H333.5 M346.5 174 H349.5 M340 174 V168"/>
+          <circle class="meter-pin" cx="340" cy="174" r="2"/>
+        </g>
+        <circle class="node" cx="260" cy="330" r="7"/>
+        <circle class="node" cx="300" cy="90" r="6"/>
+        <circle class="node" cx="160" cy="390" r="6"/>
+        <circle class="node" cx="380" cy="390" r="6"/>
+        <circle class="node" cx="490" cy="210" r="7"/>
+        <circle class="node" cx="490" cy="130" r="5"/>
+        <circle class="node" cx="490" cy="190" r="5"/>
+        <circle class="node" cx="490" cy="250" r="5"/>
+        <circle class="node" cx="490" cy="310" r="5"/>
+        <circle class="node" cx="690" cy="130" r="5"/>
+        <circle class="node" cx="690" cy="190" r="5"/>
+        <circle class="node" cx="690" cy="250" r="5"/>
+        <circle class="node" cx="690" cy="310" r="5"/>
+        <g class="tree"><path class="tree-top" d="M497 114 L503 102 L509 114 Z"/><path class="tree-trunk" d="M503 114 V120"/></g>
+        <g class="house"><path class="house-roof" d="M510 106 L522 97 L534 106 Z"/><rect class="house-wall" x="512" y="106" width="20" height="14"/><rect class="house-door" x="520" y="112" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M540 106 L552 97 L564 106 Z"/><rect class="house-wall" x="542" y="106" width="20" height="14"/><rect class="house-door" x="550" y="112" width="4" height="8"/></g>
+        <g class="tree"><path class="tree-top" d="M569 114 L575 102 L581 114 Z"/><path class="tree-trunk" d="M575 114 V120"/></g>
+        <g class="house"><path class="house-roof" d="M586 106 L598 97 L610 106 Z"/><rect class="house-wall" x="588" y="106" width="20" height="14"/><rect class="house-door" x="596" y="112" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M616 106 L628 97 L640 106 Z"/><rect class="house-wall" x="618" y="106" width="20" height="14"/><rect class="house-door" x="626" y="112" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M648 106 L660 97 L672 106 Z"/><rect class="house-wall" x="650" y="106" width="20" height="14"/><rect class="house-door" x="658" y="112" width="4" height="8"/></g>
+        <g class="tree"><path class="tree-top" d="M497 174 L503 162 L509 174 Z"/><path class="tree-trunk" d="M503 174 V180"/></g>
+        <g class="house"><path class="house-roof" d="M510 166 L522 157 L534 166 Z"/><rect class="house-wall" x="512" y="166" width="20" height="14"/><rect class="house-door" x="520" y="172" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M540 166 L552 157 L564 166 Z"/><rect class="house-wall" x="542" y="166" width="20" height="14"/><rect class="house-door" x="550" y="172" width="4" height="8"/></g>
+        <g class="tree"><path class="tree-top" d="M569 174 L575 162 L581 174 Z"/><path class="tree-trunk" d="M575 174 V180"/></g>
+        <g class="house"><path class="house-roof" d="M586 166 L598 157 L610 166 Z"/><rect class="house-wall" x="588" y="166" width="20" height="14"/><rect class="house-door" x="596" y="172" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M616 166 L628 157 L640 166 Z"/><rect class="house-wall" x="618" y="166" width="20" height="14"/><rect class="house-door" x="626" y="172" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M648 166 L660 157 L672 166 Z"/><rect class="house-wall" x="650" y="166" width="20" height="14"/><rect class="house-door" x="658" y="172" width="4" height="8"/></g>
+        <g class="tree"><path class="tree-top" d="M497 234 L503 222 L509 234 Z"/><path class="tree-trunk" d="M503 234 V240"/></g>
+        <g class="house"><rect class="house-wall" x="515" y="226" width="60" height="14"/><rect class="house-roof" x="512" y="222" width="66" height="4"/><rect class="house-wall" x="555" y="217" width="4" height="5"/><rect class="house-wall" x="563" y="217" width="4" height="5"/><rect class="house-door" x="523" y="232" width="8" height="8"/><rect class="house-door" x="545" y="232" width="8" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M598 226 L610 217 L622 226 Z"/><rect class="house-wall" x="600" y="226" width="20" height="14"/><rect class="house-door" x="608" y="232" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M638 226 L650 217 L662 226 Z"/><rect class="house-wall" x="640" y="226" width="20" height="14"/><rect class="house-door" x="648" y="232" width="4" height="8"/></g>
+        <g class="tree"><path class="tree-top" d="M497 294 L503 282 L509 294 Z"/><path class="tree-trunk" d="M503 294 V300"/></g>
+        <g class="house"><rect class="house-wall" x="515" y="286" width="60" height="14"/><rect class="house-roof" x="512" y="282" width="66" height="4"/><rect class="house-wall" x="555" y="277" width="4" height="5"/><rect class="house-wall" x="563" y="277" width="4" height="5"/><rect class="house-door" x="523" y="292" width="8" height="8"/><rect class="house-door" x="545" y="292" width="8" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M598 286 L610 277 L622 286 Z"/><rect class="house-wall" x="600" y="286" width="20" height="14"/><rect class="house-door" x="608" y="292" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M638 286 L650 277 L662 286 Z"/><rect class="house-wall" x="640" y="286" width="20" height="14"/><rect class="house-door" x="648" y="292" width="4" height="8"/></g>
+        <text x="345" y="244">subnetwork: DMZ_01</text>
+        <text x="168" y="124">isolating device</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="alt" id="areas">
+    <div class="wrap">
+      <h2>Áreas de atuação</h2>
+      <p class="intro">Três domínios complementares, habitualmente presentes em cada projeto.</p>
+      <div class="areas">
+        <div>
+          <h3>Utility Network em redes de águas de abastecimento, residuais e pluviais</h3>
+          <p>Modelação de redes de abastecimento de água e de drenagem de águas residuais e pluviais: mapeamento do modelo de dados de origem, regras de conectividade, associações, sub-redes e traçados.</p>
+        </div>
+        <div>
+          <h3>ArcGIS Enterprise</h3>
+          <p>Configuração e administração da plataforma, publicação de serviços e operações através da REST Admin API do ArcGIS Server.</p>
+        </div>
+        <div>
+          <h3>Automação com Python</h3>
+          <p>Desenvolvimento de scripts em <code>arcpy</code> e ArcGIS API for Python para carregamento e validação de dados, manutenção de geodatabases e integração com os sistemas comerciais e de faturação de água das entidades gestoras.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="wrap">
+      <h2>Tecnologias</h2>
+      <p class="intro">Ferramentas utilizadas na atividade atual e em funções anteriores.</p>
+      <dl class="stack">
+        <dt>Plataforma</dt>
+        <dd><ul class="chips"><li>ArcGIS Enterprise</li><li>ArcGIS Server</li><li>ArcGIS Pro</li></ul></dd>
+        <dt>Modelação</dt>
+        <dd><ul class="chips"><li>Utility Network</li><li>Enterprise geodatabase</li><li>Network rules</li><li>Subnetworks</li></ul></dd>
+        <dt>Desenvolvimento</dt>
+        <dd><ul class="chips"><li>Python</li><li>arcpy</li><li>ArcGIS API for Python</li><li>REST Admin API</li><li>SQL</li><li>FME</li><li>PyCharm</li></ul></dd>
+        <dt>Experiência anterior</dt>
+        <dd><ul class="chips"><li>Hexagon GeoMedia</li><li>GeoMedia WebMap</li><li>Oracle</li></ul></dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="alt" id="internacional">
+    <div class="wrap">
+      <h2>Experiência internacional</h2>
+      <p class="intro">Participação presencial, no terreno, em projetos de sistemas de informação geográfica junto de entidades gestoras de água em vários países.</p>
+      <div id="mapa" class="world-map" role="region" aria-label="Mapa dos países onde participou em projetos: Angola, São Tomé e Príncipe, Guiné-Bissau e Moçambique"></div>
+      <ul class="countries">
+        <li data-pt="0">
+          <span class="country">Angola</span>
+          <h3>EPAL-EP</h3>
+          <p>Empresa Pública de Águas de Luanda</p>
+          <p class="scope">Assistência técnica</p>
+          <p class="years">2008 – 2013</p>
+        </li>
+        <li data-pt="1">
+          <span class="country">São Tomé e Príncipe</span>
+          <h3>EMAE</h3>
+          <p>Empresa de Água e Eletricidade de São Tomé e Príncipe</p>
+          <p class="scope">Assistência técnica no setor do abastecimento de água urbana e periurbana</p>
+          <p class="years">2017</p>
+          <a class="project-link" href="https://waterhub.pt/pt/projects/assistencia-tecnica-a-empresa-de-agua-e-eletricidade-de-sao-tome-e-principe-no-setor-do-abastecimento-de-agua-urbana-e-periurbana" target="_blank" rel="noopener">Ver projeto no WaterHub</a>
+        </li>
+        <li data-pt="2">
+          <span class="country">Guiné-Bissau</span>
+          <h3>EAGB</h3>
+          <p>Electricidade e Águas da Guiné-Bissau</p>
+          <p class="scope">Gestão das infraestruturas de abastecimento de água numa ferramenta SIG</p>
+          <p class="years">2018</p>
+          <a class="project-link" href="https://waterhub.pt/pt/projects/management-of-infrastructures-for-water-supply-in-geographic-information-system-gis-tool-at-guinea-bissau" target="_blank" rel="noopener">Ver projeto no WaterHub</a>
+        </li>
+        <li data-pt="3">
+          <span class="country">Moçambique</span>
+          <h3>Águas da Região de Maputo</h3>
+          <p>Abastecimento de água à área metropolitana de Maputo</p>
+          <p class="scope">Migração de dados, instalação do sistema e formação em ambiente desktop e web</p>
+          <p class="years">2018</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="notas">
+    <div class="wrap">
+      <h2>Notas técnicas</h2>
+      <p class="intro">Registo de soluções técnicas e boas práticas resultantes da experiência em projeto.</p>
+      <ul class="notes">
+        <li><a href="notas/attribute-rules-triggering-fields.html">
+          <time datetime="2026-10-21">out 2026</time>
+          <div><h3>Boas práticas em Attribute Rules, parte 1: Triggering Fields no ArcGIS Pro</h3><p>Configuração de regras de cálculo e de restrição para que sejam executadas apenas quando os campos de que dependem são alterados.</p></div>
+          <span class="tag">Attribute Rules</span>
+        </a></li>
+        <li><a href="notas/subredes-multi-controlador.html">
+          <time datetime="2026-10-15">out 2026</time>
+          <div><h3>Sub-redes multi-controlador em redes de água</h3><p>Modelação de um sistema alimentado por várias captações como uma única sub-rede, recorrendo à topologia mesh.</p></div>
+          <span class="tag">Utility Network</span>
+        </a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="alt" id="percurso">
+    <div class="wrap">
+      <div>
+        <h2>Percurso</h2>
+        <p class="intro">Percurso académico e profissional, da Engenharia do Ambiente aos Sistemas de Informação Geográfica.</p>
+        <ol class="timeline">
+          <li>
+            <span class="when">2022 – presente</span>
+            <h3>GIS Consultant, Trainer e Technical Adviser, Esri Portugal</h3>
+            <p>Acompanhamento de migrações para a Utility Network em entidades gestoras de água, configuração de geodatabases, desenvolvimento de scripts em Python e formação.</p>
+          </li>
+          <li>
+            <span class="when">2008 – 2022</span>
+            <h3>GIS Consultant, AQUASIS</h3>
+            <p>Utilização das soluções Hexagon (GeoMedia e GeoMedia WebMap) e de bases de dados Oracle, gestão de projetos SIG, prestação de suporte técnico e formação.</p>
+          </li>
+          <li>
+            <span class="when">2002</span>
+            <h3>Licenciatura em Engenharia do Ambiente</h3>
+            <p>Frequência anterior do curso de Engenharia de Eletrónica e Computadores, até ao 2.º ano.</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="contact">
+    <div class="wrap">
+      <h2>Contacto</h2>
+      <p class="intro">Disponível para a troca de conhecimento sobre a Utility Network, os SIG aplicados a redes de água ou qualquer um dos temas aqui abordados.</p>
+      <dl>
+        <dt>Email</dt>
+        <dd><span id="mail">mariomontez@gmail.com</span><button class="copy" type="button" id="copy">Copiar</button></dd>
+        <dt>LinkedIn</dt>
+        <dd><a href="https://www.linkedin.com/in/mariomontez/">linkedin.com/in/mariomontez</a></dd>
+        <dt>GitHub</dt>
+        <dd><a href="https://github.com/mariofmontez">github.com/mariofmontez</a></dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Mário Montez</span>
+    <span>As opiniões expressas neste site são de caráter pessoal.</span>
+  </div>
+</footer>
+
+<script>
+  const btn = document.querySelector('.menu-btn');
+  const menu = document.getElementById('menu');
+  btn.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    btn.textContent = open ? 'Fechar' : 'Menu';
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open'); btn.setAttribute('aria-expanded', false); btn.textContent = 'Menu';
+  }));
+  document.getElementById('copy').addEventListener('click', async (e) => {
+    try {
+      await navigator.clipboard.writeText(document.getElementById('mail').textContent);
+      e.target.textContent = 'Copiado';
+      setTimeout(() => e.target.textContent = 'Copiar', 2000);
+    } catch { e.target.textContent = 'Selecione e copie'; }
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+  // Mapa da experiência internacional (Leaflet + mapa base Esri)
+  (function () {
+    if (!window.L) return;
+    const base = { name: 'Lisboa', ll: [38.72, -9.14] };
+    const pts = [
+      { name: 'Angola', org: 'EPAL-EP', ll: [-8.84, 13.23], dir: 'right' },
+      { name: 'São Tomé e Príncipe', org: 'EMAE', ll: [0.34, 6.73], dir: 'left' },
+      { name: 'Guiné-Bissau', org: 'EAGB', ll: [11.86, -15.60], dir: 'left' },
+      { name: 'Moçambique', org: 'Águas da Região de Maputo', ll: [-25.97, 32.57], dir: 'right' }
+    ];
+    const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const css = getComputedStyle(document.documentElement);
+    const pipe = css.getPropertyValue('--pipe').trim(), valve = css.getPropertyValue('--valve').trim(), ink = css.getPropertyValue('--ink').trim();
+    const map = L.map('mapa', { scrollWheelZoom: false, zoomSnap: 0.25, attributionControl: true });
+    // Mapa base Esri: Light Gray Canvas / Dark Gray Canvas (sem etiquetas)
+    const esriBase = dark ? 'Canvas/World_Dark_Gray_Base' : 'Canvas/World_Light_Gray_Base';
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/' + esriBase + '/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 16,
+      attribution: 'Powered by <a href="https://www.esri.com">Esri</a> | Esri, HERE, Garmin, FAO, NOAA, USGS'
+    }).addTo(map);
+    const markers = [];
+    pts.forEach(p => {
+      L.polyline([base.ll, p.ll], { color: pipe, weight: 3, opacity: .85, className: 'route' }).addTo(map);
+      const m = L.circleMarker(p.ll, { radius: 8, color: ink, weight: 2.5, fillColor: pipe, fillOpacity: 1 })
+        .bindTooltip('<b>' + p.name + '</b><br>' + p.org, { permanent: true, direction: p.dir, offset: [p.dir === 'right' ? 10 : -10, 0], className: 'map-label' })
+        .addTo(map);
+      markers.push(m);
+    });
+    L.circleMarker(base.ll, { radius: 9, color: ink, weight: 2.5, fillColor: valve, fillOpacity: 1 })
+      .bindTooltip('<b>Portugal</b>', { permanent: true, direction: 'right', offset: [10, 0], className: 'map-label' })
+      .addTo(map);
+    const bounds = L.latLngBounds([base.ll, ...pts.map(p => p.ll)]);
+    const fit = () => map.fitBounds(bounds, { padding: [40, 40] });
+    fit();
+    document.querySelectorAll('.countries li').forEach(li => {
+      li.tabIndex = 0;
+      const go = () => { map.flyTo(pts[+li.dataset.pt].ll, 6, { duration: 1 }); };
+      li.addEventListener('click', e => { if (!e.target.closest('a')) go(); });
+      li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+    });
+    const reset = L.control({ position: 'topright' });
+    reset.onAdd = () => { const b = L.DomUtil.create('button', 'map-reset'); b.type = 'button'; b.textContent = 'Ver todos'; L.DomEvent.on(b, 'click', e => { L.DomEvent.stop(e); fit(); }); return b; };
+    reset.addTo(map);
+  })();
+</script>
+</body>
+</html>
