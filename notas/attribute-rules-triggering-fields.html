@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boas práticas em Attribute Rules, parte 1: Triggering Fields no ArcGIS Pro | Mário Montez</title>
+<meta name="description" content="Como configurar triggering fields no ArcGIS Pro 3.4 para que as regras de cálculo e de restrição sejam executadas apenas quando necessário.">
+<meta name="author" content="Mário Montez">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Boas práticas em Attribute Rules, parte 1: Triggering Fields no ArcGIS Pro">
+<meta property="og:description" content="Cálculos e restrições executados apenas quando necessário.">
+<link rel="canonical" href="https://[seudominio].pt/notas/attribute-rules-triggering-fields.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Saltar para o conteúdo</a>
+
+<header>
+  <nav class="wrap nav" aria-label="Principal">
+    <a class="brand" href="../index.html">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M3 18 H13 V7 H23" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="18" r="3.5" fill="#D9982A"/></svg>
+      Mário Montez
+    </a>
+    <div class="links" style="display:flex; position:static; flex-direction:row; gap:1.25rem; padding:0; border:0; background:none">
+      <a href="../index.html#notas">Notas técnicas</a>
+      <a href="../index.html#contacto">Contacto</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main" class="article">
+  <div class="wrap">
+    <a class="back" href="../index.html#notas">Voltar às notas técnicas</a>
+    <article>
+      <h1>Boas práticas em Attribute Rules, parte 1: Triggering Fields no ArcGIS Pro</h1>
+      <p class="lead">Cálculos e restrições executados apenas quando necessário.</p>
+      <p class="meta"><time datetime="2026-10-21">21 out 2026</time> · Attribute Rules · ArcGIS Pro 3.4</p>
+
+      <h2>O problema: regras que correm sempre</h2>
+
+      <p>Desde o ArcGIS Pro 2.1 que as regras de atributo imediatas (de cálculo e de restrição) são uma das ferramentas mais úteis para garantir qualidade de dados no momento da edição. Mas tinham um custo escondido: numa classe com regras de update, alterar qualquer campo fazia correr todas essas regras.</p>
+
+      <p>Mudar uma observação de texto disparava o recálculo do comprimento, a validação do material e a consulta à tabela de manutenções. Numa edição pontual nota-se pouco. Numa atualização em massa de milhares de registos, ou num processo automático que mexe em campos de sistema, o tempo de execução cresce sem necessidade.</p>
+
+      <p>O ArcGIS Pro 3.4 (em par com o ArcGIS Enterprise 11.4) trouxe a resposta: os <i>triggering fields</i>. Neste artigo explico o que são, como se configuram no Pro e em Python, e mostro alguns exemplos em Arcade.</p>
+
+      <h2>O que são os triggering fields</h2>
+
+      <figure>
+        <img src="../img/tf-lista-predefinida.png" alt="Secção Triggering Fields da vista de Attribute Rules no ArcGIS Pro, com SHAPE, ASSETGROUP, ASSETTYPE e ASSOCIATIONSTATUS na lista Active e a lista Inactive vazia" loading="lazy">
+        <figcaption>Lista de triggering fields de uma regra: por omissão, todos os campos estão ativos.</figcaption>
+      </figure>
+
+      <p>Os triggering fields são uma lista de campos que decide quando uma regra imediata corre num evento de update: a regra só é avaliada se pelo menos um desses campos tiver sido alterado. Aplicam-se a regras de cálculo e de restrição e foram introduzidos no ArcGIS Pro 3.4.</p>
+
+      <p>Há um equívoco comum que vale a pena desfazer. Numa regra de cálculo indica-se o campo a calcular, e muitos assumem que a regra só corre quando esse campo muda. No entanto não é isso que acontece: até ao 3.3, a regra corria em qualquer update do registo, independentemente do campo editado.</p>
+
+      <p>Três pontos sobre o comportamento:</p>
+      <ul>
+        <li><strong>Por omissão, todos os campos estão selecionados.</strong> Uma regra nova ou migrada comporta-se exatamente como antes, por compatibilidade. O ganho só aparece quando se reduz a lista.</li>
+        <li><strong>Só afetam o evento Update.</strong> Insert e Delete continuam a disparar a regra como sempre.</li>
+        <li><strong>Não se aplicam a regras batch</strong> (cálculo em batch e validação), que são avaliadas no momento da validação e não durante a edição.</li>
+      </ul>
+
+      <p>O impacto pode ser grande. No exemplo publicado pela Esri, uma regra de restrição sobre a geometria, configurada para disparar só no Shape, fez cair um Calculate Field num campo de notas em 20 000 registos de mais de um minuto (Pro 3.3) para menos de cinco segundos (Pro 3.4) (<a href="https://www.esri.com/arcgis-blog/products/arcgis-pro/data-management/attribute-rules-triggering-fields/">fonte</a>).</p>
+
+      <figure>
+        <img src="../img/tf-desempenho-pro34-pro33.gif" alt="Animação com cronómetro a comparar, lado a lado, a execução do Calculate Field no ArcGIS Pro 3.4 e no ArcGIS Pro 3.3" loading="lazy">
+        <figcaption>Diferença de desempenho de uma Attribute Rule com e sem triggering fields.</figcaption>
+      </figure>
+
+      <h2>Configurar no ArcGIS Pro</h2>
+
+      <p>A configuração faz-se na vista de Attribute Rules, ao criar ou editar uma regra imediata:</p>
+      <ol>
+        <li>No painel Catalog, clicar com o botão direito na classe e escolher <strong>Data Design &gt; Attribute Rules</strong>.</li>
+        <li>Criar ou abrir uma regra de cálculo ou de restrição e marcar o evento <strong>Update</strong>. A lista de Triggering Fields aparece, com todos os campos selecionados.</li>
+        <li>Usar o botão <strong>Add from script</strong>: o Pro analisa a expressão Arcade e acrescenta os campos lidos através de <code>$feature</code>. É um bom ponto de partida, mas não dispensa revisão.</li>
+        <li>Retirar da lista os campos que não influenciam o resultado da regra e guardar.</li>
+      </ol>
+
+      <figure>
+        <img src="../img/tf-regra-shape.png" alt="Regra de restrição Prevent shape change no ArcGIS Pro, com o evento Update ativo e apenas o campo Shape na lista de triggering fields ativos" loading="lazy">
+        <figcaption>Regra de restrição com o Shape como único triggering field.</figcaption>
+      </figure>
+
+      <p>Antes de guardar, confirme a lista final: o objetivo é ficar só com os campos que de facto mudam o resultado da regra, não com todos os que já lá estavam.</p>
+
+      <h2>Exemplos práticos em Arcade</h2>
+
+      <p>A regra de ouro: os triggering fields de uma regra são os campos de <code>$feature</code> de que o resultado depende. Três casos típicos.</p>
+
+      <h3>1. Comprimento calculado (cálculo)</h3>
+      <p>Depende apenas da geometria, por isso só deve correr quando o Shape muda.</p>
+<pre><code>// Campo: COMPRIMENTO | Triggering fields: SHAPE
+return Round(Length($feature, 'meters'), 2);</code></pre>
+
+      <h3>2. Etiqueta a partir de atributos (cálculo)</h3>
+      <p>Depende do material e do diâmetro. Alterar observações, estado ou data de inspeção não tem de recalcular a etiqueta.</p>
+<pre><code>// Campo: ETIQUETA | Triggering fields: MATERIAL;DIAMETRO
+var mat = DomainName($feature, 'MATERIAL');
+var dn = $feature.DIAMETRO;
+if (IsEmpty(mat) || IsEmpty(dn)) return null;
+return mat + ' DN' + Text(dn);</code></pre>
+
+      <h3>3. Impedir mover elementos existentes (restrição)</h3>
+      <p>Compara a geometria atual com a original. Sem triggering fields, esta comparação corria a cada edição de qualquer atributo, para devolver sempre <code>true</code>.</p>
+<pre><code>// Triggering events: UPDATE | Triggering fields: SHAPE
+if (Equals(Geometry($feature), Geometry($originalFeature))) {
+    return true;
+}
+return {
+    'errorMessage': 'Não é permitido mover elementos já existentes.'
+};</code></pre>
+
+      <p>E um caso a ter cuidado: regras que leem outras tabelas com <code>FeatureSetByName</code>. Os triggering fields olham só para os campos do próprio registo. Se a regra depende de um campo que identifica o registo relacionado (por exemplo, o código da zona de abastecimento), esse campo tem de estar na lista.</p>
+
+      <h2>Boas práticas, armadilhas e compatibilidade</h2>
+      <ul>
+        <li><strong>Rever as regras existentes depois de atualizar.</strong> Regras criadas antes do 3.4 ficam com todos os campos selecionados e não ganham nada sozinhas. A Esri recomenda revê-las uma a uma.</li>
+        <li><strong>Uma lista curta demais é pior do que uma longa.</strong> Se faltar um campo de que a regra depende, o valor calculado fica desatualizado sem qualquer aviso. Testar sempre com edições representativas antes de passar a produção.</li>
+        <li><strong>Serviços precisam de ArcGIS Enterprise 11.4 ou superior.</strong> Uma classe configurada no Pro 3.4 e publicada em 11.3 funciona, mas o servidor ignora a propriedade e a regra volta a disparar em todos os campos.</li>
+        <li><strong>A geodatabase não precisa de ser atualizada.</strong> Segundo a Esri, uma geodatabase de release anterior (por exemplo 11.3) beneficia na mesma da funcionalidade.</li>
+        <li><strong>Insert e Delete não mudam.</strong> Cargas de dados são inserts e continuam a disparar as regras; para essas, a opção continua a ser desativar a regra durante a carga.</li>
+        <li><strong>Utility Network.</strong> Excluir o subnetwork name, o isconnected e os campos propagados evita que as regras disparem durante o Update Subnetwork, com ganhos grandes quando há eventing ativo.</li>
+      </ul>
+      <p>As três notas de compatibilidade vêm das respostas da Esri no artigo original.</p>
+
+      <h2>Conclusão</h2>
+
+      <p>Os triggering fields são uma alteração pequena na configuração com um efeito grande no desempenho: cada regra passa a correr só quando os dados de que depende mudam. Para quem tem modelos com dezenas de regras, ou faz atualizações em massa com frequência, rever as listas de campos é das otimizações com melhor relação esforço/resultado no ArcGIS Pro 3.4 e posteriores.</p>
+
+      <p>O ponto de partida é simples: escolher a regra mais pesada do modelo, reduzir a lista aos campos que ela usa e medir a diferença num Calculate Field.</p>
+
+      <h2>Fontes</h2>
+      <ul class="sources">
+        <li><a href="https://www.esri.com/arcgis-blog/products/arcgis-pro/data-management/attribute-rules-triggering-fields/">Attribute Rules Triggering Fields in ArcGIS Pro 3.4</a>, ArcGIS Blog</li>
+        <li><a href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/add-attribute-rule.htm">Add Attribute Rule</a>, documentação ArcGIS Pro</li>
+        <li><a href="https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/alter-attribute-rule.htm">Alter Attribute Rule</a>, documentação ArcGIS Pro</li>
+      </ul>
+
+      <p class="origin">Publicado originalmente no <a href="https://www.linkedin.com/in/mariomontez/">LinkedIn</a> a 21 de outubro de 2026.</p>
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Mário Montez</span>
+    <span>As opiniões expressas neste site são de caráter pessoal.</span>
+  </div>
+</footer>
+</body>
+</html>
