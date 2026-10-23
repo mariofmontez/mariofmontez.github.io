@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mário Montez | SIG, Utility Network e redes de água</title>
+<meta name="description" content="Notas técnicas, projetos e percurso em ArcGIS Enterprise, Utility Network e engenharia de dados geográficos para redes de água.">
+<meta name="author" content="Mário Montez">
+<meta name="theme-color" content="#0E2A3B">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mário Montez | SIG e Utility Network">
+<meta property="og:description" content="ArcGIS Enterprise, Utility Network, Python e dados geográficos aplicados a redes de água.">
+<meta property="og:image" content="https://[seudominio].pt/og-image.jpg">
+<meta property="og:url" content="https://[seudominio].pt/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Saltar para o conteúdo</a>
+
+<header>
+  <nav class="wrap nav" aria-label="Principal">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M3 18 H13 V7 H23" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="18" r="3.5" fill="#D9982A"/></svg>
+      Mário Montez
+    </a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+    <div class="links" id="menu">
+      <a href="#areas">Atuação</a>
+      <a href="#stack">Tecnologias</a>
+      <a href="#nacional">Nacional</a>
+      <a href="#internacional">Internacional</a>
+      <a href="#notas">Notas</a>
+      <a href="#percurso">Percurso</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="role">Sistemas de Informação Geográfica aplicados a redes de água</p>
+        <h1>ArcGIS Utility Network aplicado a redes de águas de abastecimento, residuais e pluviais.</h1>
+        <p class="lede">Profissional de SIG dedicado a redes de água. Atualmente implemento e configuro a ArcGIS Utility Network, apoiando entidades gestoras na modelação das suas redes e na gestão dos seus ativos geográficos.</p>
+        <ul class="profiles">
+          <li><a href="https://github.com/mariofmontez">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/mariomontez/">LinkedIn</a></li>
+        </ul>
+      </div>
+
+      <svg class="network" viewBox="0 0 700 420" role="img" aria-label="Esquema de uma rede de abastecimento de água com reservatório, condutas, nós e válvulas">
+        <path class="pipe" d="M150 120 V40 H300"/>
+        <path class="pipe sec" d="M260 210 V330 H160 V390"/>
+        <path class="flow flow-sec" d="M260 210 V330 H160 V390"/>
+        <path class="pipe sec" d="M260 330 H380 V390"/>
+        <path class="flow flow-sec" d="M260 330 H380 V390"/>
+        <path class="pipe" d="M300 40 V90"/>
+        <path class="pipe sec" d="M490 210 V130"/>
+        <path class="flow flow-sec" d="M490 210 V130"/>
+        <path class="pipe sec" d="M490 210 V310"/>
+        <path class="flow flow-sec" d="M490 210 V310"/>
+        <path class="pipe sec" d="M690 130 V310"/>
+        <path class="flow flow-sec" d="M690 130 V310"/>
+        <path class="pipe sec" d="M490 130 H690"/>
+        <path class="flow flow-sec" d="M490 130 H690"/>
+        <path class="pipe sec" d="M490 190 H690"/>
+        <path class="flow flow-sec" d="M490 190 H690"/>
+        <path class="pipe sec" d="M490 250 H690"/>
+        <path class="flow flow-sec" d="M490 250 H690"/>
+        <path class="pipe sec" d="M490 310 H690"/>
+        <path class="flow flow-sec" d="M490 310 H690"/>
+        <path class="pipe sec" d="M522 130 V120"/>
+        <path class="flow flow-sec" d="M522 130 V120"/>
+        <path class="pipe sec" d="M552 130 V120"/>
+        <path class="flow flow-sec" d="M552 130 V120"/>
+        <path class="pipe sec" d="M598 130 V120"/>
+        <path class="flow flow-sec" d="M598 130 V120"/>
+        <path class="pipe sec" d="M628 130 V120"/>
+        <path class="flow flow-sec" d="M628 130 V120"/>
+        <path class="pipe sec" d="M660 130 V120"/>
+        <path class="flow flow-sec" d="M660 130 V120"/>
+        <path class="pipe sec" d="M522 190 V180"/>
+        <path class="flow flow-sec" d="M522 190 V180"/>
+        <path class="pipe sec" d="M552 190 V180"/>
+        <path class="flow flow-sec" d="M552 190 V180"/>
+        <path class="pipe sec" d="M598 190 V180"/>
+        <path class="flow flow-sec" d="M598 190 V180"/>
+        <path class="pipe sec" d="M628 190 V180"/>
+        <path class="flow flow-sec" d="M628 190 V180"/>
+        <path class="pipe sec" d="M660 190 V180"/>
+        <path class="flow flow-sec" d="M660 190 V180"/>
+        <path class="pipe sec" d="M527 250 V240"/>
+        <path class="flow flow-sec" d="M527 250 V240"/>
+        <path class="pipe sec" d="M557 250 V240"/>
+        <path class="flow flow-sec" d="M557 250 V240"/>
+        <path class="pipe sec" d="M610 250 V240"/>
+        <path class="flow flow-sec" d="M610 250 V240"/>
+        <path class="pipe sec" d="M650 250 V240"/>
+        <path class="flow flow-sec" d="M650 250 V240"/>
+        <path class="pipe sec" d="M527 310 V300"/>
+        <path class="flow flow-sec" d="M527 310 V300"/>
+        <path class="pipe sec" d="M557 310 V300"/>
+        <path class="flow flow-sec" d="M557 310 V300"/>
+        <path class="pipe sec" d="M610 310 V300"/>
+        <path class="flow flow-sec" d="M610 310 V300"/>
+        <path class="pipe sec" d="M650 310 V300"/>
+        <path class="flow flow-sec" d="M650 310 V300"/>
+        <path class="pipe main" d="M68 210 H150 V120 M150 210 H490"/>
+        <path class="flow" d="M70 210 H490"/>
+        <path class="flow" d="M150 210 V136"/>
+        <g class="tank-sym" aria-label="tank">
+          <rect class="tank-shell" x="12" y="166" width="22" height="14" rx="2"/>
+          <path class="tank-shell" d="M12 180 Q40 169 68 180 V243 Q40 255 12 243 Z"/>
+          <path class="tank-air" d="M17 186 Q40 177 63 186 V194 H17 Z"/>
+          <path class="tank-water" d="M17 194 H63 V238 Q40 248 17 238 Z"/>
+          <rect class="tank-line" x="25" y="200" width="30" height="3"/>
+          <rect class="tank-line" x="29" y="207" width="22" height="3"/>
+          <circle class="tank-air" cx="40" cy="232" r="4.5"/>
+        </g>
+        <text x="28" y="268">Tank</text>
+        <path class="valve" d="M196 200 L196 220 L214 210 Z M232 200 L232 220 L214 210 Z"/>
+        <path class="valve" d="M140 104 L160 104 L150 120 Z M140 136 L160 136 L150 120 Z"/>
+        <circle class="node" cx="150" cy="210" r="8"/>
+        <circle class="node" cx="260" cy="210" r="8"/>
+        <g class="meter" aria-label="flow meter" transform="translate(400 210) scale(0.72) translate(-340 -210)">
+          <rect class="meter-body" x="322" y="202" width="36" height="16" rx="2"/>
+          <rect class="meter-flange" x="315" y="199" width="8" height="22" rx="2.5"/>
+          <rect class="meter-flange" x="357" y="199" width="8" height="22" rx="2.5"/>
+          <rect class="meter-body" x="335" y="189" width="10" height="13" rx="1.5"/>
+          <circle class="meter-ring" cx="340" cy="174" r="16"/>
+          <circle class="meter-face" cx="340" cy="174" r="11"/>
+          <path class="meter-tick" d="M340 164.5 V167.5 M340 180.5 V183.5 M330.5 174 H333.5 M346.5 174 H349.5 M340 174 V168"/>
+          <circle class="meter-pin" cx="340" cy="174" r="2"/>
+        </g>
+        <circle class="node" cx="260" cy="330" r="7"/>
+        <circle class="node" cx="300" cy="90" r="6"/>
+        <circle class="node" cx="160" cy="390" r="6"/>
+        <circle class="node" cx="380" cy="390" r="6"/>
+        <circle class="node" cx="490" cy="210" r="7"/>
+        <circle class="node" cx="490" cy="130" r="5"/>
+        <circle class="node" cx="490" cy="190" r="5"/>
+        <circle class="node" cx="490" cy="250" r="5"/>
+        <circle class="node" cx="490" cy="310" r="5"/>
+        <circle class="node" cx="690" cy="130" r="5"/>
+        <circle class="node" cx="690" cy="190" r="5"/>
+        <circle class="node" cx="690" cy="250" r="5"/>
+        <circle class="node" cx="690" cy="310" r="5"/>
+        <g class="tree"><path class="tree-top" d="M497 114 L503 102 L509 114 Z"/><path class="tree-trunk" d="M503 114 V120"/></g>
+        <g class="house"><path class="house-roof" d="M510 106 L522 97 L534 106 Z"/><rect class="house-wall" x="512" y="106" width="20" height="14"/><rect class="house-door" x="520" y="112" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M540 106 L552 97 L564 106 Z"/><rect class="house-wall" x="542" y="106" width="20" height="14"/><rect class="house-door" x="550" y="112" width="4" height="8"/></g>
+        <g class="tree"><path class="tree-top" d="M569 114 L575 102 L581 114 Z"/><path class="tree-trunk" d="M575 114 V120"/></g>
+        <g class="house"><path class="house-roof" d="M586 106 L598 97 L610 106 Z"/><rect class="house-wall" x="588" y="106" width="20" height="14"/><rect class="house-door" x="596" y="112" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M616 106 L628 97 L640 106 Z"/><rect class="house-wall" x="618" y="106" width="20" height="14"/><rect class="house-door" x="626" y="112" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M648 106 L660 97 L672 106 Z"/><rect class="house-wall" x="650" y="106" width="20" height="14"/><rect class="house-door" x="658" y="112" width="4" height="8"/></g>
+        <g class="tree"><path class="tree-top" d="M497 174 L503 162 L509 174 Z"/><path class="tree-trunk" d="M503 174 V180"/></g>
+        <g class="house"><path class="house-roof" d="M510 166 L522 157 L534 166 Z"/><rect class="house-wall" x="512" y="166" width="20" height="14"/><rect class="house-door" x="520" y="172" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M540 166 L552 157 L564 166 Z"/><rect class="house-wall" x="542" y="166" width="20" height="14"/><rect class="house-door" x="550" y="172" width="4" height="8"/></g>
+        <g class="tree"><path class="tree-top" d="M569 174 L575 162 L581 174 Z"/><path class="tree-trunk" d="M575 174 V180"/></g>
+        <g class="house"><path class="house-roof" d="M586 166 L598 157 L610 166 Z"/><rect class="house-wall" x="588" y="166" width="20" height="14"/><rect class="house-door" x="596" y="172" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M616 166 L628 157 L640 166 Z"/><rect class="house-wall" x="618" y="166" width="20" height="14"/><rect class="house-door" x="626" y="172" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M648 166 L660 157 L672 166 Z"/><rect class="house-wall" x="650" y="166" width="20" height="14"/><rect class="house-door" x="658" y="172" width="4" height="8"/></g>
+        <g class="tree"><path class="tree-top" d="M497 234 L503 222 L509 234 Z"/><path class="tree-trunk" d="M503 234 V240"/></g>
+        <g class="house"><rect class="house-wall" x="515" y="226" width="60" height="14"/><rect class="house-roof" x="512" y="222" width="66" height="4"/><rect class="house-wall" x="555" y="217" width="4" height="5"/><rect class="house-wall" x="563" y="217" width="4" height="5"/><rect class="house-door" x="523" y="232" width="8" height="8"/><rect class="house-door" x="545" y="232" width="8" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M598 226 L610 217 L622 226 Z"/><rect class="house-wall" x="600" y="226" width="20" height="14"/><rect class="house-door" x="608" y="232" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M638 226 L650 217 L662 226 Z"/><rect class="house-wall" x="640" y="226" width="20" height="14"/><rect class="house-door" x="648" y="232" width="4" height="8"/></g>
+        <g class="tree"><path class="tree-top" d="M497 294 L503 282 L509 294 Z"/><path class="tree-trunk" d="M503 294 V300"/></g>
+        <g class="house"><rect class="house-wall" x="515" y="286" width="60" height="14"/><rect class="house-roof" x="512" y="282" width="66" height="4"/><rect class="house-wall" x="555" y="277" width="4" height="5"/><rect class="house-wall" x="563" y="277" width="4" height="5"/><rect class="house-door" x="523" y="292" width="8" height="8"/><rect class="house-door" x="545" y="292" width="8" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M598 286 L610 277 L622 286 Z"/><rect class="house-wall" x="600" y="286" width="20" height="14"/><rect class="house-door" x="608" y="292" width="4" height="8"/></g>
+        <g class="house"><path class="house-roof" d="M638 286 L650 277 L662 286 Z"/><rect class="house-wall" x="640" y="286" width="20" height="14"/><rect class="house-door" x="648" y="292" width="4" height="8"/></g>
+        <text x="345" y="244">subnetwork: DMZ_01</text>
+        <text x="168" y="124">isolating device</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="alt" id="areas">
+    <div class="wrap">
+      <h2>Áreas de atuação</h2>
+      <p class="intro">Três domínios complementares, habitualmente presentes em cada projeto.</p>
+      <div class="areas">
+        <div>
+          <h3>Utility Network em redes de águas de abastecimento, residuais e pluviais</h3>
+          <p>Modelação de redes de abastecimento de água e de drenagem de águas residuais e pluviais: mapeamento do modelo de dados de origem, regras de conectividade, associações, sub-redes e traçados.</p>
+        </div>
+        <div>
+          <h3>ArcGIS Enterprise</h3>
+          <p>Configuração e administração da plataforma, publicação de serviços e operações através da REST Admin API do ArcGIS Server.</p>
+        </div>
+        <div>
+          <h3>Automação com Python</h3>
+          <p>Desenvolvimento de scripts em <code>arcpy</code> e ArcGIS API for Python para carregamento e validação de dados, manutenção de geodatabases e integração com os sistemas comerciais e de faturação de água das entidades gestoras.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="wrap">
+      <h2>Tecnologias</h2>
+      <p class="intro">Ferramentas utilizadas na atividade atual e em funções anteriores.</p>
+      <dl class="stack">
+        <dt>Plataforma</dt>
+        <dd><ul class="chips"><li>ArcGIS Enterprise</li><li>ArcGIS Server</li><li>ArcGIS Pro</li></ul></dd>
+        <dt>Modelação</dt>
+        <dd><ul class="chips"><li>Utility Network</li><li>Enterprise geodatabase</li><li>Network rules</li><li>Subnetworks</li></ul></dd>
+        <dt>Desenvolvimento</dt>
+        <dd><ul class="chips"><li>Python</li><li>arcpy</li><li>ArcGIS API for Python</li><li>REST Admin API</li><li>SQL</li><li>FME</li><li>PyCharm</li></ul></dd>
+        <dt>Experiência anterior</dt>
+        <dd><ul class="chips"><li>Hexagon GeoMedia</li><li>GeoMedia WebMap</li><li>Oracle</li></ul></dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="alt" id="nacional">
+    <div class="wrap">
+      <h2>Experiência nacional</h2>
+      <p class="intro">Colaboração com entidades gestoras de água e saneamento em todo o território nacional, incluindo a Região Autónoma da Madeira.</p>
+      <ul class="activities">
+        <li>Assistência técnica e consultoria</li>
+        <li>Instalação de sistemas</li>
+        <li>Formação</li>
+        <li>Integrações</li>
+      </ul>
+      <div class="nat-grid">
+        <div class="nat-map-wrap">
+          <div id="mapa-pt" class="world-map nat-map" role="region" aria-label="Mapa das entidades gestoras em Portugal"></div>
+          <div class="nat-info" id="nat-info" aria-live="polite">Selecione uma entidade no mapa ou na lista para ver a área de intervenção.</div>
+        </div>
+        <div class="nat-list">
+          <p class="nat-count">40 entidades</p>
+          <ul id="nat-list">
+          <li><button type="button" data-i="0">AGERE</button></li>
+          <li><button type="button" data-i="1">Águas da Covilhã</button></li>
+          <li><button type="button" data-i="2">Águas da Figueira</button></li>
+          <li><button type="button" data-i="3">Águas da Lourinhã</button></li>
+          <li><button type="button" data-i="4">Águas da Região de Aveiro</button></li>
+          <li><button type="button" data-i="5">Águas de Cascais</button></li>
+          <li><button type="button" data-i="6">Águas de Coimbra</button></li>
+          <li><button type="button" data-i="7">Águas de Gaia</button></li>
+          <li><button type="button" data-i="8">Águas de Santarém</button></li>
+          <li><button type="button" data-i="9">Águas de Santo André</button></li>
+          <li><button type="button" data-i="10">Águas do Algarve</button></li>
+          <li><button type="button" data-i="11">Águas do Centro Litoral</button></li>
+          <li><button type="button" data-i="12">Águas do Douro e Paiva</button></li>
+          <li><button type="button" data-i="13">Águas do Interior Norte</button></li>
+          <li><button type="button" data-i="14">Águas do Norte</button></li>
+          <li><button type="button" data-i="15">Águas do Sado</button></li>
+          <li><button type="button" data-i="16">Águas do Tejo Atlântico</button></li>
+          <li><button type="button" data-i="17">Águas do Vale do Tejo</button></li>
+          <li><button type="button" data-i="18">Águas e Energia do Porto</button></li>
+          <li><button type="button" data-i="19">Águas e Resíduos da Madeira</button></li>
+          <li><button type="button" data-i="20">Câmara Municipal de Alvito</button></li>
+          <li><button type="button" data-i="21">Câmara Municipal de Évora</button></li>
+          <li><button type="button" data-i="22">Câmara Municipal de Lisboa (Saneamento)</button></li>
+          <li><button type="button" data-i="23">Câmara Municipal de Macedo de Cavaleiros</button></li>
+          <li><button type="button" data-i="24">Câmara Municipal de Palmela</button></li>
+          <li><button type="button" data-i="25">Câmara Municipal de Sesimbra</button></li>
+          <li><button type="button" data-i="26">Câmara Municipal de Sines</button></li>
+          <li><button type="button" data-i="27">Câmara Municipal do Barreiro</button></li>
+          <li><button type="button" data-i="28">EPAL</button></li>
+          <li><button type="button" data-i="29">Esposende Ambiente</button></li>
+          <li><button type="button" data-i="30">Infraquinta</button></li>
+          <li><button type="button" data-i="31">SIMAR de Loures e Odivelas</button></li>
+          <li><button type="button" data-i="32">SIMARSUL</button></li>
+          <li><button type="button" data-i="33">SMAS da Maia</button></li>
+          <li><button type="button" data-i="34">SMAS das Caldas da Rainha</button></li>
+          <li><button type="button" data-i="35">SMAS de Castelo Branco</button></li>
+          <li><button type="button" data-i="36">SMAS de Mafra</button></li>
+          <li><button type="button" data-i="37">SMAS de Oeiras e Amadora</button></li>
+          <li><button type="button" data-i="38">SMAS de Torres Vedras</button></li>
+          <li><button type="button" data-i="39">VIMAGUA</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="internacional">
+    <div class="wrap">
+      <h2>Experiência internacional</h2>
+      <p class="intro">Projetos de sistemas de informação geográfica desenvolvidos no terreno e remotamente, junto de entidades gestoras de água em cinco países.</p>
+      <div id="mapa" class="world-map" role="region" aria-label="Mapa dos países onde participou em projetos: Angola, Espanha, São Tomé e Príncipe, Guiné-Bissau e Moçambique"></div>
+      <ul class="countries">
+        <li data-pt="0">
+          <div class="org-logo"><img src="img/logos/epal.png" alt="Logótipo EPAL-EP" loading="lazy"></div>
+          <span class="country">Angola</span>
+          <h3>EPAL-EP</h3>
+          <p>Empresa Pública de Águas de Luanda</p>
+          <p class="scope">Assistência técnica</p>
+          <p class="years">2008 – 2013</p>
+        </li>
+        <li data-pt="1">
+          <div class="org-logo"><img src="img/logos/reus.png" alt="Logótipo Aigües de Reus" loading="lazy"></div>
+          <span class="country">Espanha</span>
+          <h3>Aigües de Reus</h3>
+          <p>Serviço de abastecimento de água de Reus, Catalunha</p>
+          <p class="scope">Migração da solução</p>
+          <p class="years">2010</p>
+        </li>
+        <li data-pt="2">
+          <div class="org-logo"><img src="img/logos/emae.png" alt="Logótipo EMAE" loading="lazy"></div>
+          <span class="country">São Tomé e Príncipe</span>
+          <h3>EMAE</h3>
+          <p>Empresa de Água e Eletricidade de São Tomé e Príncipe</p>
+          <p class="scope">Assistência técnica no setor do abastecimento de água urbana e periurbana</p>
+          <p class="years">2017</p>
+          <a class="project-link" href="https://waterhub.pt/pt/projects/assistencia-tecnica-a-empresa-de-agua-e-eletricidade-de-sao-tome-e-principe-no-setor-do-abastecimento-de-agua-urbana-e-periurbana" target="_blank" rel="noopener">Ver projeto no WaterHub</a>
+        </li>
+        <li data-pt="3">
+          <div class="org-logo"><img src="img/logos/eagb.png" alt="Logótipo EAGB" loading="lazy"></div>
+          <span class="country">Guiné-Bissau</span>
+          <h3>EAGB</h3>
+          <p>Electricidade e Águas da Guiné-Bissau</p>
+          <p class="scope">Gestão das infraestruturas de abastecimento de água numa ferramenta SIG</p>
+          <p class="years">2018</p>
+          <a class="project-link" href="https://waterhub.pt/pt/projects/management-of-infrastructures-for-water-supply-in-geographic-information-system-gis-tool-at-guinea-bissau" target="_blank" rel="noopener">Ver projeto no WaterHub</a>
+        </li>
+        <li data-pt="4">
+          <div class="org-logo"><img src="img/logos/maputo.png" alt="Logótipo Águas da Região de Maputo" loading="lazy"></div>
+          <span class="country">Moçambique</span>
+          <h3>Águas da Região de Maputo</h3>
+          <p>Abastecimento de água à área metropolitana de Maputo</p>
+          <p class="scope">Migração de dados, instalação do sistema e formação em ambiente desktop e web</p>
+          <p class="years">2018</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="alt" id="notas">
+    <div class="wrap">
+      <h2>Notas técnicas</h2>
+      <p class="intro">Registo de soluções técnicas e boas práticas resultantes da experiência em projeto.</p>
+      <ul class="notes">
+        <li><a href="notas/attribute-rules-triggering-fields.html">
+          <time datetime="2026-10-21">out 2026</time>
+          <div><h3>Boas práticas em Attribute Rules, parte 1: Triggering Fields no ArcGIS Pro</h3><p>Configuração de regras de cálculo e de restrição para que sejam executadas apenas quando os campos de que dependem são alterados.</p></div>
+          <span class="tag">Attribute Rules</span>
+        </a></li>
+        <li><a href="notas/subredes-multi-controlador.html">
+          <time datetime="2026-10-15">out 2026</time>
+          <div><h3>Sub-redes multi-controlador em redes de água</h3><p>Modelação de um sistema alimentado por várias captações como uma única sub-rede, recorrendo à topologia mesh.</p></div>
+          <span class="tag">Utility Network</span>
+        </a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="percurso">
+    <div class="wrap">
+      <div>
+        <h2>Percurso</h2>
+        <p class="intro">Percurso académico e profissional, da Engenharia do Ambiente aos Sistemas de Informação Geográfica.</p>
+        <ol class="timeline">
+          <li>
+            <span class="when">2022 – presente</span>
+            <h3>GIS Consultant, Trainer e Technical Adviser, Esri Portugal</h3>
+            <p>Acompanhamento de migrações para a Utility Network em entidades gestoras de água, configuração de geodatabases, desenvolvimento de scripts em Python e formação.</p>
+          </li>
+          <li>
+            <span class="when">2008 – 2022</span>
+            <h3>GIS Consultant, AQUASIS</h3>
+            <p>Utilização das soluções Hexagon (GeoMedia e GeoMedia WebMap) e de bases de dados Oracle, gestão de projetos SIG, prestação de suporte técnico e formação.</p>
+          </li>
+          <li>
+            <span class="when">2002</span>
+            <h3>Licenciatura em Engenharia do Ambiente</h3>
+            <p>Frequência anterior do curso de Engenharia de Eletrónica e Computadores, até ao 2.º ano.</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt contact" id="contacto">
+    <div class="wrap">
+      <h2>Contacto</h2>
+      <p class="intro">Disponível para a troca de conhecimento sobre a Utility Network, os SIG aplicados a redes de água ou qualquer um dos temas aqui abordados.</p>
+      <dl>
+        <dt>Email</dt>
+        <dd><span id="mail">mariomontez@gmail.com</span><button class="copy" type="button" id="copy">Copiar</button></dd>
+        <dt>LinkedIn</dt>
+        <dd><a href="https://www.linkedin.com/in/mariomontez/">linkedin.com/in/mariomontez</a></dd>
+        <dt>GitHub</dt>
+        <dd><a href="https://github.com/mariofmontez">github.com/mariofmontez</a></dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Mário Montez</span>
+    <span>As opiniões expressas neste site são de caráter pessoal.</span>
+  </div>
+</footer>
+
+<script>
+  const btn = document.querySelector('.menu-btn');
+  const menu = document.getElementById('menu');
+  btn.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    btn.textContent = open ? 'Fechar' : 'Menu';
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open'); btn.setAttribute('aria-expanded', false); btn.textContent = 'Menu';
+  }));
+  document.getElementById('copy').addEventListener('click', async (e) => {
+    try {
+      await navigator.clipboard.writeText(document.getElementById('mail').textContent);
+      e.target.textContent = 'Copiado';
+      setTimeout(() => e.target.textContent = 'Copiar', 2000);
+    } catch { e.target.textContent = 'Selecione e copie'; }
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+  // Mapa da experiência internacional (Leaflet + mapa base Esri)
+  (function () {
+    if (!window.L) return;
+    const base = { name: 'Lisboa', ll: [38.72, -9.14] };
+    const pts = [
+      { name: 'Angola', org: 'EPAL-EP', ll: [-8.84, 13.23], dir: 'right' },
+      { name: 'Espanha', org: 'Aigües de Reus', ll: [41.155, 1.107], dir: 'right' },
+      { name: 'São Tomé e Príncipe', org: 'EMAE', ll: [0.34, 6.73], dir: 'left' },
+      { name: 'Guiné-Bissau', org: 'EAGB', ll: [11.86, -15.60], dir: 'left' },
+      { name: 'Moçambique', org: 'Águas da Região de Maputo', ll: [-25.97, 32.57], dir: 'right' }
+    ];
+    const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const css = getComputedStyle(document.documentElement);
+    const pipe = css.getPropertyValue('--pipe').trim(), valve = css.getPropertyValue('--valve').trim(), ink = css.getPropertyValue('--ink').trim();
+    const map = L.map('mapa', { scrollWheelZoom: false, zoomSnap: 0.25, attributionControl: true });
+    // Mapa base Esri: Light Gray Canvas / Dark Gray Canvas (sem etiquetas)
+    const esriBase = dark ? 'Canvas/World_Dark_Gray_Base' : 'Canvas/World_Light_Gray_Base';
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/' + esriBase + '/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 16,
+      attribution: 'Powered by <a href="https://www.esri.com">Esri</a> | Esri, HERE, Garmin, FAO, NOAA, USGS'
+    }).addTo(map);
+    const FLAGS = {"Angola": "<svg class=\"flag\" viewBox=\"0 0 30 20\" role=\"img\" aria-label=\"Bandeira de Angola\"><rect width=\"30\" height=\"10\" fill=\"#CC092F\"/><rect y=\"10\" width=\"30\" height=\"10\" fill=\"#000\"/><path d=\"M11.6 12.6 A4.2 4.2 0 1 0 18.6 7.6\" fill=\"none\" stroke=\"#FFCB00\" stroke-width=\"1.3\"/><path d=\"M12.4 13.4 L18.2 7.8\" stroke=\"#FFCB00\" stroke-width=\"1.3\"/><polygon points=\"13.20,6.30 13.69,7.72 15.20,7.75 14.00,8.66 14.43,10.10 13.20,9.24 11.97,10.10 12.40,8.66 11.20,7.75 12.71,7.72\" fill=\"#FFCB00\"/></svg>", "Espanha": "<svg class=\"flag\" viewBox=\"0 0 30 20\" role=\"img\" aria-label=\"Bandeira de Espanha\"><rect width=\"30\" height=\"20\" fill=\"#AA151B\"/><rect y=\"5\" width=\"30\" height=\"10\" fill=\"#F1BF00\"/></svg>", "São Tomé e Príncipe": "<svg class=\"flag\" viewBox=\"0 0 30 20\" role=\"img\" aria-label=\"Bandeira de São Tomé e Príncipe\"><rect width=\"30\" height=\"20\" fill=\"#12AD2B\"/><rect y=\"6\" width=\"30\" height=\"8\" fill=\"#FFCE00\"/><path d=\"M0 0 L10 10 L0 20 Z\" fill=\"#D21034\"/><polygon points=\"16.50,7.60 17.06,9.22 18.78,9.26 17.41,10.30 17.91,11.94 16.50,10.96 15.09,11.94 15.59,10.30 14.22,9.26 15.94,9.22\" fill=\"#000\"/><polygon points=\"23.50,7.60 24.06,9.22 25.78,9.26 24.41,10.30 24.91,11.94 23.50,10.96 22.09,11.94 22.59,10.30 21.22,9.26 22.94,9.22\" fill=\"#000\"/></svg>", "Guiné-Bissau": "<svg class=\"flag\" viewBox=\"0 0 30 20\" role=\"img\" aria-label=\"Bandeira de Guiné-Bissau\"><rect width=\"30\" height=\"10\" fill=\"#FCD116\"/><rect y=\"10\" width=\"30\" height=\"10\" fill=\"#009E49\"/><rect width=\"10\" height=\"20\" fill=\"#CE1126\"/><polygon points=\"5.00,6.80 5.75,8.96 8.04,9.01 6.22,10.40 6.88,12.59 5.00,11.28 3.12,12.59 3.78,10.40 1.96,9.01 4.25,8.96\" fill=\"#000\"/></svg>", "Moçambique": "<svg class=\"flag\" viewBox=\"0 0 30 20\" role=\"img\" aria-label=\"Bandeira de Moçambique\"><rect width=\"30\" height=\"20\" fill=\"#FFFFFF\"/><rect width=\"30\" height=\"6\" fill=\"#007168\"/><rect y=\"7\" width=\"30\" height=\"6\" fill=\"#000\"/><rect y=\"14\" width=\"30\" height=\"6\" fill=\"#FCE100\"/><path d=\"M0 0 L12 10 L0 20 Z\" fill=\"#D21034\"/><polygon points=\"4.80,7.20 5.46,9.09 7.46,9.13 5.87,10.35 6.45,12.27 4.80,11.12 3.15,12.27 3.73,10.35 2.14,9.13 4.14,9.09\" fill=\"#FCE100\"/></svg>"};
+    const flagOf = n => FLAGS[n] || '';
+    const markers = [];
+    pts.forEach(p => {
+      L.polyline([base.ll, p.ll], { color: pipe, weight: 3, opacity: .85, className: 'route' }).addTo(map);
+      const m = L.circleMarker(p.ll, { radius: 8, color: ink, weight: 2.5, fillColor: pipe, fillOpacity: 1 })
+        .bindTooltip('<span class="ml">' + flagOf(p.name) + '<span class="ml-text"><b>' + p.name + '</b><span>' + p.org + '</span></span></span>', { permanent: true, direction: p.dir, offset: [p.dir === 'right' ? 10 : -10, 0], className: 'map-label' })
+        .addTo(map);
+      markers.push(m);
+    });
+    L.circleMarker(base.ll, { radius: 9, color: ink, weight: 2.5, fillColor: valve, fillOpacity: 1 })
+      .bindTooltip('<b>Portugal</b>', { permanent: true, direction: 'left', offset: [-10, 0], className: 'map-label' })
+      .addTo(map);
+    const bounds = L.latLngBounds([base.ll, ...pts.map(p => p.ll)]);
+    const fit = () => map.fitBounds(bounds, { padding: [40, 40] });
+    fit();
+    document.querySelectorAll('.countries li').forEach(li => {
+      li.tabIndex = 0;
+      const go = () => { map.flyTo(pts[+li.dataset.pt].ll, 6, { duration: 1 }); };
+      li.addEventListener('click', e => { if (!e.target.closest('a')) go(); });
+      li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+    });
+    const reset = L.control({ position: 'topright' });
+    reset.onAdd = () => { const b = L.DomUtil.create('button', 'map-reset'); b.type = 'button'; b.textContent = 'Ver todos'; L.DomEvent.on(b, 'click', e => { L.DomEvent.stop(e); fit(); }); return b; };
+    reset.addTo(map);
+  })();
+</script>
+<script>
+  // Experiência nacional: entidades e áreas de intervenção (limites de concelho da CAOP, DGT)
+  (function () {
+    if (!window.L) return;
+    const ENT = [{"n": "AGERE", "ll": [41.551, -8.42], "c": ["Braga"], "note": ""}, {"n": "Águas da Covilhã", "ll": [40.281, -7.504], "c": ["Covilhã"], "note": ""}, {"n": "Águas da Figueira", "ll": [40.151, -8.861], "c": ["Figueira da Foz"], "note": ""}, {"n": "Águas da Lourinhã", "ll": [39.242, -9.312], "c": ["Lourinhã"], "note": ""}, {"n": "Águas da Região de Aveiro", "ll": [40.641, -8.654], "c": ["Águeda", "Albergaria-a-Velha", "Aveiro", "Estarreja", "Ílhavo", "Murtosa", "Oliveira do Bairro", "Ovar", "Sever do Vouga", "Vagos"], "note": ""}, {"n": "Águas de Cascais", "ll": [38.697, -9.421], "c": ["Cascais"], "note": ""}, {"n": "Águas de Coimbra", "ll": [40.203, -8.41], "c": ["Coimbra"], "note": ""}, {"n": "Águas de Gaia", "ll": [41.124, -8.611], "c": ["Vila Nova de Gaia"], "note": ""}, {"n": "Águas de Santarém", "ll": [39.236, -8.687], "c": ["Santarém"], "note": ""}, {"n": "Águas de Santo André", "ll": [38.06, -8.78], "c": ["Santiago do Cacém", "Sines"], "note": ""}, {"n": "Águas do Algarve", "ll": [37.019, -7.93], "c": ["Albufeira", "Alcoutim", "Aljezur", "Castro Marim", "Faro", "Lagoa", "Lagos", "Loulé", "Monchique", "Olhão", "Portimão", "São Brás de Alportel", "Silves", "Tavira", "Vila do Bispo", "Vila Real de Santo António"], "note": ""}, {"n": "Águas do Centro Litoral", "ll": [40.23, -8.44], "c": ["Ansião", "Arganil", "Coimbra", "Condeixa-a-Nova", "Góis", "Leiria", "Lousã", "Mealhada", "Miranda do Corvo", "Penacova", "Penela", "Vila Nova de Poiares", "Aveiro", "Ovar", "Ourém"], "note": "o saneamento abrange 30 municípios; lista parcial", "b": ["Aveiro", "Ovar", "Ourém"], "al": "Abastecimento em alta (e saneamento)", "bl": "Saneamento"}, {"n": "Águas do Douro e Paiva", "ll": [41.16, -8.55], "c": ["Amarante", "Arouca", "Baião", "Castelo de Paiva", "Cinfães", "Espinho", "Felgueiras", "Gondomar", "Lousada", "Maia", "Matosinhos", "Oliveira de Azeméis", "Ovar", "Paços de Ferreira", "Paredes", "Porto", "Santa Maria da Feira", "São João da Madeira", "Valongo", "Vila Nova de Gaia", "Penafiel", "Vale de Cambra"], "note": "abastecimento em alta; 20 municípios utilizadores e 2 clientes"}, {"n": "Águas do Interior Norte", "ll": [41.21, -7.62], "c": ["Freixo de Espada à Cinta", "Mesão Frio", "Murça", "Peso da Régua", "Sabrosa", "Santa Marta de Penaguião", "Torre de Moncorvo", "Vila Real"], "note": ""}, {"n": "Águas do Norte", "ll": [41.3, -7.744], "c": ["Vila Real", "Bragança", "Viana do Castelo", "Chaves", "Lamego", "Mirandela", "Santo Tirso", "Fafe", "Amarante", "Monção", "Esposende", "Alijó", "Arcos de Valdevez", "Caminha", "Melgaço", "Paredes de Coura", "Ponte da Barca", "Ponte de Lima", "Valença", "Vila Nova de Cerveira"], "note": "lista parcial do sistema multimunicipal", "b": ["Arcos de Valdevez", "Caminha", "Melgaço", "Paredes de Coura", "Ponte da Barca", "Ponte de Lima", "Valença", "Vila Nova de Cerveira"], "al": "Sistema multimunicipal, em alta", "bl": "Parceria do Noroeste, em alta e em baixa"}, {"n": "Águas do Sado", "ll": [38.524, -8.893], "c": ["Setúbal"], "note": ""}, {"n": "Águas do Tejo Atlântico", "ll": [38.705, -9.18], "c": ["Alcobaça", "Alenquer", "Amadora", "Arruda dos Vinhos", "Azambuja", "Bombarral", "Cadaval", "Caldas da Rainha", "Cascais", "Lisboa", "Loures", "Lourinhã", "Mafra", "Nazaré", "Óbidos", "Odivelas", "Oeiras", "Peniche", "Rio Maior", "Sintra", "Sobral de Monte Agraço", "Torres Vedras", "Vila Franca de Xira"], "note": "A confirmar."}, {"n": "Águas do Vale do Tejo", "ll": [40.537, -7.267], "c": ["Guarda", "Covilhã", "Belmonte", "Sabugal", "Gouveia", "Seia", "Fornos de Algodres", "Celorico da Beira", "Pinhel", "Trancoso", "Almeida", "Figueira de Castelo Rodrigo", "Meda", "Aguiar da Beira", "Castelo Branco", "Idanha-a-Nova", "Fundão", "Penamacor", "Oleiros", "Proença-a-Nova", "Sertã", "Vila Velha de Ródão", "Tomar", "Ferreira do Zêzere", "Sardoal", "Mação", "Vila de Rei", "Portalegre", "Alter do Chão", "Arronches", "Avis", "Campo Maior", "Castelo de Vide", "Crato", "Elvas", "Fronteira", "Gavião", "Marvão", "Monforte", "Nisa", "Ponte de Sor", "Sousel", "Évora", "Alandroal", "Arraiolos", "Borba", "Estremoz", "Montemor-o-Novo", "Mora", "Mourão", "Portel", "Redondo", "Reguengos de Monsaraz", "Vendas Novas", "Viana do Alentejo", "Vila Viçosa"], "note": "lista parcial"}, {"n": "Águas e Energia do Porto", "ll": [41.15, -8.611], "c": ["Porto"], "note": ""}, {"n": "Águas e Resíduos da Madeira", "ll": [32.65, -16.908], "c": ["Calheta", "Câmara de Lobos", "Funchal", "Machico", "Ponta do Sol", "Porto Moniz", "Ribeira Brava", "Santa Cruz", "Santana", "São Vicente"], "note": "ilha da Madeira"}, {"n": "Câmara Municipal de Alvito", "ll": [38.256, -7.993], "c": ["Alvito"], "note": ""}, {"n": "Câmara Municipal de Évora", "ll": [38.571, -7.909], "c": ["Évora"], "note": ""}, {"n": "Câmara Municipal de Lisboa (Saneamento)", "ll": [38.745, -9.16], "c": ["Lisboa"], "note": ""}, {"n": "Câmara Municipal de Macedo de Cavaleiros", "ll": [41.538, -6.961], "c": ["Macedo de Cavaleiros"], "note": ""}, {"n": "Câmara Municipal de Palmela", "ll": [38.569, -8.901], "c": ["Palmela"], "note": ""}, {"n": "Câmara Municipal de Sesimbra", "ll": [38.444, -9.101], "c": ["Sesimbra"], "note": ""}, {"n": "Câmara Municipal de Sines", "ll": [37.956, -8.869], "c": ["Sines"], "note": ""}, {"n": "Câmara Municipal do Barreiro", "ll": [38.663, -9.072], "c": ["Barreiro"], "note": ""}, {"n": "EPAL", "ll": [38.722, -9.139], "c": ["Alcanena", "Alcobaça", "Alenquer", "Amadora", "Arruda dos Vinhos", "Azambuja", "Batalha", "Bombarral", "Cadaval", "Caldas da Rainha", "Cartaxo", "Cascais", "Constância", "Entroncamento", "Leiria", "Lisboa", "Loures", "Lourinhã", "Mafra", "Nazaré", "Óbidos", "Odivelas", "Oeiras", "Ourém", "Peniche", "Porto de Mós", "Rio Maior", "Santarém", "Sintra", "Sobral de Monte Agraço", "Tomar", "Torres Novas", "Torres Vedras", "Vila Franca de Xira", "Vila Nova da Barquinha"], "b": ["Lisboa"], "note": "", "al": "Abastecimento em alta", "bl": "Distribuição em baixa", "bInA": true}, {"n": "Esposende Ambiente", "ll": [41.533, -8.781], "c": ["Esposende"], "note": ""}, {"n": "Infraquinta", "ll": [37.05, -8.02], "c": [], "note": "Área de intervenção inferior a um concelho: Quinta do Lago (Almancil, Loulé)."}, {"n": "SIMAR de Loures e Odivelas", "ll": [38.831, -9.168], "c": ["Loures", "Odivelas"], "note": ""}, {"n": "SIMARSUL", "ll": [38.55, -8.95], "c": ["Alcochete", "Barreiro", "Moita", "Montijo", "Palmela", "Seixal", "Sesimbra", "Setúbal"], "note": ""}, {"n": "SMAS da Maia", "ll": [41.235, -8.62], "c": ["Maia"], "note": ""}, {"n": "SMAS das Caldas da Rainha", "ll": [39.403, -9.136], "c": ["Caldas da Rainha"], "note": ""}, {"n": "SMAS de Castelo Branco", "ll": [39.822, -7.491], "c": ["Castelo Branco"], "note": ""}, {"n": "SMAS de Mafra", "ll": [38.937, -9.328], "c": ["Mafra"], "note": ""}, {"n": "SMAS de Oeiras e Amadora", "ll": [38.722, -9.268], "c": ["Oeiras", "Amadora"], "note": ""}, {"n": "SMAS de Torres Vedras", "ll": [39.091, -9.259], "c": ["Torres Vedras"], "note": ""}, {"n": "VIMAGUA", "ll": [41.444, -8.296], "c": ["Guimarães", "Vizela"], "note": ""}];
+    const CAOP_CONT = 'https://infogeo.dgterritorio.gov.pt/arcgis/rest/services/cadastro/caop_concelhos/MapServer/0/query';
+    const CAOP_MAD = 'https://infogeo.dgterritorio.gov.pt/arcgis/rest/services/Hosted/Concelhos_Arquip%C3%A9lago_da_Madeira/FeatureServer/2/query';
+    const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const css = getComputedStyle(document.documentElement);
+    const pipe = css.getPropertyValue('--pipe').trim(), valve = css.getPropertyValue('--valve').trim(), ink = css.getPropertyValue('--ink').trim();
+    const map = L.map('mapa-pt', { scrollWheelZoom: false, zoomSnap: 0.25 });
+    const esriBase = dark ? 'Canvas/World_Dark_Gray_Base' : 'Canvas/World_Light_Gray_Base';
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/' + esriBase + '/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 16, attribution: 'Powered by <a href="https://www.esri.com">Esri</a> | Limites: CAOP, DGT'
+    }).addTo(map);
+    const CONT = [[36.9, -9.6], [42.2, -6.1]], MAD = [[32.6, -17.3], [32.9, -16.6]];
+    const showCont = () => map.fitBounds(CONT, { padding: [10, 10] });
+    showCont();
+
+    const U = s => String(s || '').toUpperCase();
+    const isMad = e => e.ll[0] < 34;
+    const info = document.getElementById('nat-info');
+    const buttons = [...document.querySelectorAll('#nat-list button')];
+    const overview = L.featureGroup().addTo(map);   // conjunto de todas as áreas
+    const area = L.featureGroup().addTo(map);       // área da entidade selecionada
+    const byName = {};                              // concelho (maiúsculas) -> feature GeoJSON
+    let selected = -1;
+
+    const markers = ENT.map((e, i) => L.circleMarker(e.ll, { radius: 6, color: ink, weight: 2, fillColor: pipe, fillOpacity: 1 })
+      .bindTooltip(e.n, { direction: 'top', offset: [0, -6], className: 'map-label' })
+      .on('click', () => select(i)).addTo(map));
+
+    const contNames = [...new Set(ENT.filter(e => !isMad(e)).flatMap(e => e.c).map(U))];
+    const madNames = [...new Set(ENT.filter(isMad).flatMap(e => e.c).map(U))];
+    const totalTxt = () => 'Área total de intervenção: ' + (contNames.length + madNames.length) + ' concelhos. Selecione uma entidade no mapa ou na lista para ver a sua área.';
+
+    async function query(url, names) {
+      const body = new URLSearchParams({
+        where: 'UPPER(concelho) IN (' + names.map(n => "'" + n.replace(/'/g, "''") + "'").join(',') + ')',
+        outFields: 'concelho', returnGeometry: 'true', outSR: '4326', maxAllowableOffset: '0.0005', geometryPrecision: '5', f: 'geojson'
+      });
+      const r = await fetch(url, { method: 'POST', body });
+      if (!r.ok) throw new Error(r.status);
+      const gj = await r.json();
+      if (!gj.features) throw new Error('sem dados');
+      return gj.features;
+    }
+    const styleAll = { color: pipe, weight: .8, opacity: .6, fillColor: pipe, fillOpacity: .14 };
+    let loaded = false;
+    async function loadAll() {
+      info.textContent = 'A carregar as áreas de intervenção…';
+      try {
+        const [fc, fm] = await Promise.all([query(CAOP_CONT, contNames), madNames.length ? query(CAOP_MAD, madNames) : []]);
+        [...fc, ...fm].forEach(f => { byName[U(f.properties.concelho)] = f; });
+        L.geoJSON({ type: 'FeatureCollection', features: [...fc, ...fm] }, { style: styleAll, interactive: false }).addTo(overview);
+        loaded = true;
+        if (selected < 0) info.textContent = totalTxt();
+      } catch (err) {
+        if (selected < 0) info.textContent = 'Não foi possível carregar as áreas de intervenção. Selecione uma entidade para ver a sua localização.';
+      }
+    }
+
+    function legend(e) {
+      const n = e.c.length;
+      let t = '<b>' + e.n + '</b><br>';
+      if (e.b && e.b.length) {
+        t += '<span class="nat-key nat-key-a"></span>' + (e.al || 'Área principal') + ': ' + (e.bInA ? n : n - e.b.length) + ' concelhos &nbsp; <span class="nat-key nat-key-b"></span>' + (e.bl || 'Área secundária') + ': ' + e.b.length + (e.b.length === 1 ? ' concelho' : ' concelhos');
+      } else {
+        t += 'Área de intervenção: ' + (n === 1 ? 'concelho de ' + e.c[0] : n + ' concelhos');
+      }
+      return t + (e.note ? ' <span class="nat-note">(' + e.note + ')</span>' : '');
+    }
+
+    async function select(i) {
+      const e = ENT[i]; selected = i;
+      buttons.forEach((b, j) => b.classList.toggle('active', j === i));
+      markers.forEach((m, j) => m.setStyle({ fillColor: j === i ? valve : pipe, radius: j === i ? 8 : 6 }));
+      area.clearLayers();
+      map.removeLayer(overview);
+      clearBtn.disabled = false;
+      if (!e.c.length) {
+        info.innerHTML = '<b>' + e.n + '</b><br>' + (e.note || 'Área de intervenção por definir.');
+        map.flyTo(e.ll, 10, { duration: .8 });
+        return;
+      }
+      let feats = e.c.map(c => byName[U(c)]).filter(Boolean);
+      if (feats.length < e.c.length) {
+        info.innerHTML = '<b>' + e.n + '</b><br>A carregar a área de intervenção…';
+        try { feats = await query(isMad(e) ? CAOP_MAD : CAOP_CONT, e.c.map(U)); feats.forEach(f => { byName[U(f.properties.concelho)] = f; }); }
+        catch (err) { feats = []; }
+        if (selected !== i) return;
+      }
+      if (!feats.length) {
+        map.flyTo(e.ll, 10, { duration: .8 });
+        info.innerHTML = '<b>' + e.n + '</b><br>Não foi possível carregar a área de intervenção (' + e.c.length + (e.c.length === 1 ? ' concelho' : ' concelhos') + ').';
+        return;
+      }
+      const baixa = (e.b || []).map(U);
+      L.geoJSON({ type: 'FeatureCollection', features: feats }, {
+        style: f => { const isB = baixa.includes(U(f.properties.concelho)); return { color: isB ? valve : pipe, weight: isB ? 2.5 : 1.5, fillColor: isB ? valve : pipe, fillOpacity: isB ? .4 : .22 }; },
+        interactive: false
+      }).addTo(area);
+      map.flyToBounds(area.getBounds(), { padding: [30, 30], duration: .8 });
+      info.innerHTML = legend(e);
+    }
+
+    function clearSel() {
+      selected = -1;
+      area.clearLayers();
+      if (!map.hasLayer(overview)) overview.addTo(map);
+      buttons.forEach(b => b.classList.remove('active'));
+      markers.forEach(m => m.setStyle({ fillColor: pipe, radius: 6 }));
+      info.textContent = loaded ? totalTxt() : 'Selecione uma entidade no mapa ou na lista para ver a área de intervenção.';
+      clearBtn.disabled = true;
+      showCont();
+    }
+
+    buttons.forEach((b, i) => b.addEventListener('click', () => select(i)));
+    let clearBtn;
+    const ctl = L.control({ position: 'topright' });
+    ctl.onAdd = () => {
+      const d = L.DomUtil.create('div', 'nat-ctl');
+      d.innerHTML = '<button type="button" class="map-reset" data-v="x" disabled>Limpar seleção</button><button type="button" class="map-reset" data-v="c">Continente</button><button type="button" class="map-reset" data-v="m">Madeira</button>';
+      L.DomEvent.disableClickPropagation(d);
+      d.addEventListener('click', ev => { const v = ev.target.dataset.v; if (v === 'x') clearSel(); if (v === 'c') showCont(); if (v === 'm') map.fitBounds(MAD); });
+      return d;
+    };
+    ctl.addTo(map);
+    clearBtn = document.querySelector('#mapa-pt .nat-ctl [data-v="x"]');
+    loadAll();
+  })();
+</script>
+</body>
+</html>
