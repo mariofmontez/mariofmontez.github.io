@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sub-redes multi-controlador em redes de água | Mário Montez</title>
+<meta name="description" content="Como modelar na ArcGIS Utility Network um sistema de abastecimento alimentado por vários furos como uma única sub-rede, com topologia mesh.">
+<meta name="author" content="Mário Montez">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ArcGIS Utility Network: sub-redes multi-controlador em redes de água">
+<meta property="og:description" content="Vários furos, um sistema: controladores com o mesmo nome de sub-rede e topologia mesh.">
+<link rel="canonical" href="https://[seudominio].pt/notas/subredes-multi-controlador.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Saltar para o conteúdo</a>
+
+<header>
+  <nav class="wrap nav" aria-label="Principal">
+    <a class="brand" href="../index.html">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><path d="M3 18 H13 V7 H23" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="13" cy="18" r="3.5" fill="#D9982A"/></svg>
+      Mário Montez
+    </a>
+    <div class="links" style="display:flex; position:static; flex-direction:row; gap:1.25rem; padding:0; border:0; background:none">
+      <a href="../index.html#notas">Notas técnicas</a>
+      <a href="../index.html#contacto">Contacto</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main" class="article">
+  <div class="wrap">
+    <a class="back" href="../index.html#notas">Voltar às notas técnicas</a>
+    <article>
+      <h1>ArcGIS Utility Network: sub-redes multi-controlador em redes de água</h1>
+      <p class="meta"><time datetime="2026-10-15">15 out 2026</time> · Utility Network</p>
+
+      <p>Um dos conceitos fundamentais da Utility Network é a possibilidade de subdividir a rede numa estrutura hierárquica de sub-redes (<i>subnetworks</i>), organizada em <i>tiers</i>, que reflita o mais fielmente possível a forma como as entidades gestoras exploram e gerem os seus ativos.</p>
+
+      <p>Os exemplos mais comuns são as origens de água (definidas pelos furos/captações ou, quando a água é comprada a outra entidade, pelos pontos de entrega), as zonas de medição e controlo (definidas pelos medidores de caudal) e as zonas de pressão (definidas por órgãos que influenciam a pressão, como VRPs ou estações elevatórias). Cada um destes níveis corresponde normalmente a um <i>tier</i> diferente. Os elementos que delimitam as sub-redes são denominados controladores de sub-rede (<i>subnetwork controllers</i>).</p>
+
+      <figure>
+        <img src="../img/controladores-sub-rede.png" alt="Ilustração isométrica de uma rede de abastecimento com os vários controladores de sub-rede: furo/captação e ponto de entrega como origens de água, medidor de caudal a definir a ZMC, VRP a definir a zona de pressão baixa e estação elevatória a definir a zona de pressão alta. A cor de cada conduta indica a sub-rede a que pertence." loading="lazy">
+        <figcaption>Controladores de sub-rede numa rede de abastecimento. Cada um define a rede a jusante.</figcaption>
+      </figure>
+
+      <h2>Tipicamente, um controlador origina uma sub-rede, mas nem sempre é assim na realidade</h2>
+
+      <p>Num sistema de abastecimento de água, é comum a mesma rede ser alimentada por duas ou três captações (furos, poços ou captações superficiais) que injetam água num conjunto comum de adutoras e reservatórios. Na Utility Network, essas captações são controladores que dão origem a uma única sub-rede. O que define esta sub-rede é o nome de sub-rede partilhado pelos controladores. Atribuir a cada furo um nome de controlador diferente, mas o mesmo nome de sub-rede, indica ao modelo que todos alimentam o mesmo sistema, que é exatamente o que acontece no terreno.</p>
+
+      <h2>Um sistema, várias origens de água</h2>
+
+      <p>Imagine-se um sistema com três furos, F1, F2 e F3, que bombeiam para a mesma adutora até um reservatório de regularização. A água dos três furos mistura-se ao longo da adutora, à medida que cada um entra, e chega ao reservatório já misturada, seguindo daí para toda a rede de distribuição. Neste exemplo, o <i>tier</i> foi configurado com topologia em malha (<i>mesh</i>), que admite vários controladores por sub-rede. F1, F2 e F3 recebem o mesmo nome de sub-rede, por exemplo <code>System_F1_F2_F3</code>, e o comando <code>Update Subnetwork</code> produz uma única sub-rede (e uma única <code>SubnetLine</code>) que cobre todo o sistema.</p>
+
+      <figure>
+        <img src="../img/subrede-tres-furos.png" alt="Mapa com três furos (controladores saida/F1, saida/F2 e saida/F3) ligados a uma adutora comum até ao reservatório, com a sub-rede System_F1_F2_F3" loading="lazy">
+        <figcaption>Exemplo de três furos que originam uma única sub-rede.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="../img/subrede-esquema.png" alt="Esquema: furos F1, F2 e F3, cada um com bomba e válvula, juntam-se em pontos de mistura numa adutora que segue para o reservatório, formando a sub-rede System_F1_F2_F3" loading="lazy">
+        <figcaption>Representação esquemática da mesma rede.</figcaption>
+      </figure>
+
+      <p>A Utility Network permite modelar as sub-redes de forma fiel à realidade da exploração. Uma rede de água raramente tem uma única origem, e a topologia <i>mesh</i> deixa que vários controladores, cada um com o seu nome, alimentem a mesma sub-rede. O nome de sub-rede partilhado é o que diz ao modelo que todos pertencem ao mesmo sistema.</p>
+
+      <p>Esta abordagem tem vantagens práticas. A sub-rede passa a representar o sistema tal como é gerido no terreno, os <i>traces</i> e análises refletem as várias origens em simultâneo, e a entrada de um novo furo resolve-se acrescentando um controlador com o mesmo nome de sub-rede, sem reestruturar o modelo. Bem definidos desde a fase de modelação, os controladores de sub-rede tornam-se a base para gerir origens, de forma coerente e sustentável.</p>
+
+      <p class="origin">Publicado originalmente no <a href="https://www.linkedin.com/in/mariomontez/">LinkedIn</a> a 15 de outubro de 2026.</p>
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Mário Montez</span>
+    <span>As opiniões expressas neste site são de caráter pessoal.</span>
+  </div>
+</footer>
+</body>
+</html>
